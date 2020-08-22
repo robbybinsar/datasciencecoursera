@@ -2,28 +2,28 @@ library(dplyr)
 
 # Loading data
 url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-download.file(url, "./data/dataset.zip", method = "curl")
+download.file(url, "dataset.zip", method = "curl")
 
 #Unzipping
-unzip("./data/dataset.zip", exdir = "./data")
+unzip("dataset.zip")
 
 # Assigning data frames
 
-activity <- read.table("./data/UCI HAR Dataset/activity_labels.txt", 
+activity <- read.table("UCI HAR Dataset/activity_labels.txt", 
                        col.names = c("no", "activity"))
-features <- read.table("./data/UCI HAR Dataset/features.txt", 
+features <- read.table("UCI HAR Dataset/features.txt", 
                        col.names = c("no","functions"))
-subjectTest <- read.table("./data/UCI HAR Dataset/test/subject_test.txt", 
+subjectTest <- read.table("UCI HAR Dataset/test/subject_test.txt", 
                           col.names = "subject")
-test_x <- read.table("./data/UCI HAR Dataset/test/X_test.txt", 
+test_x <- read.table("UCI HAR Dataset/test/X_test.txt", 
                      col.names = features$functions)
-test_y <- read.table("./data/UCI HAR Dataset/test/y_test.txt", 
+test_y <- read.table("UCI HAR Dataset/test/y_test.txt", 
                      col.names = "no")
-subjectTrain <- read.table("./data/UCI HAR Dataset/train/subject_train.txt",
+subjectTrain <- read.table("UCI HAR Dataset/train/subject_train.txt",
                            col.names = "subject")
-train_x <- read.table("./data/UCI HAR Dataset/train/X_train.txt", 
+train_x <- read.table("UCI HAR Dataset/train/X_train.txt", 
                       col.names = features$functions)
-train_y <- read.table("./data/UCI HAR Dataset/train/y_train.txt", 
+train_y <- read.table("UCI HAR Dataset/train/y_train.txt", 
                       col.names = "no")
 
 # Merging datasets
@@ -51,5 +51,5 @@ names(tidydata) <- gsub("tBody", "TimeBody", names(tidydata))
 # Average of each variable with new tidy dataset
 result <- tidydata %>% group_by(subject, activity) %>% 
   summarize_all(mean)
-write.table(result, "./data/resultassignment.txt", row.names = F)
+write.table(result, "resultassignment.txt", row.names = F)
 
