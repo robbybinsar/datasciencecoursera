@@ -30,7 +30,7 @@ train_y <- read.table("./data/UCI HAR Dataset/train/y_train.txt",
 sumbu_X <- bind_rows(train_x, test_x)
 sumbu_Y <- bind_rows(train_y, test_y)
 subjects <- bind_rows(subjectTrain, subjectTest)
-merged <- bind_cols(subjects, Y, X)
+merged <- bind_cols(subjects, sumbu_X, sumbu_Y)
 
 # Select only mean and standard deviation
 tidydata <- merged %>% select(subject,no, contains("mean"), contains("std"))
